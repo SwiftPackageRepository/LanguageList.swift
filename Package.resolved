@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ISO639.swift",
+        "repositoryURL": "https://github.com/SwiftPackageRepository/ISO639.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "a01443e84979c652b4d8754b9fbb0cc5bc135bf9",
+          "version": "1.2.0"
+        }
+      },
+      {
+        "package": "SearchField",
+        "repositoryURL": "https://github.com/SwiftPackageRepository/SearchField.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "9354e7be49fdd3d6c71d2f2089bf062c99e40324",
+          "version": "1.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
