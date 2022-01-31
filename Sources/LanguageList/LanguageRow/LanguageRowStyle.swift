@@ -27,4 +27,6 @@ internal enum LanguageRowStyle {
     case official
     case name
     case officialAndName
+    case localized
+    case localizedAndOfficial
 }

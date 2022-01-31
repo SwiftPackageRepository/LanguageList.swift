@@ -18,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		154AEF2527A84E1700EBF106 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		154AEF2727A84EAF00EBF106 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15A98FA227889BBD00EDAED4 /* LanguageListExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageListExampleApp.swift; sourceTree = "<group>"; };
 		15A98FA327889BBD00EDAED4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		15A98FA427889BBF00EDAED4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,11 +49,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		154AEF2627A84E3B00EBF106 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				154AEF2527A84E1700EBF106 /* Info.plist */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
 		15A98F9C27889BBD00EDAED4 = {
 			isa = PBXGroup;
 			children = (
 				15A98FC027889BE900EDAED4 /* LanguageList.swift */,
 				15A98FA127889BBD00EDAED4 /* Shared */,
+				154AEF2627A84E3B00EBF106 /* iOS */,
 				15A98FB027889BBF00EDAED4 /* macOS */,
 				15A98FAA27889BBF00EDAED4 /* Products */,
 				15A98FC127889D0800EDAED4 /* Frameworks */,
@@ -80,6 +91,7 @@
 		15A98FB027889BBF00EDAED4 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				154AEF2727A84EAF00EBF106 /* Info.plist */,
 				15A98FB127889BBF00EDAED4 /* macOS.entitlements */,
 			);
 			path = macOS;
@@ -160,6 +172,8 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				"zh-Hans",
 			);
 			mainGroup = 15A98F9C27889BBD00EDAED4;
 			productRefGroup = 15A98FAA27889BBF00EDAED4 /* Products */;
@@ -333,6 +347,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -362,6 +377,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -394,6 +410,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -420,6 +437,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

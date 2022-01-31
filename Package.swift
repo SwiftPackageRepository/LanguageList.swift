@@ -20,7 +20,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/SwiftPackageRepository/ISO639.swift.git",
-            from: "1.2.0"
+            from: "1.3.1"
         ),
         .package(
             url: "https://github.com/SwiftPackageRepository/SearchField.swift.git",
@@ -34,7 +34,8 @@ let package = Package(
                 .product(name: "ISO639", package: "ISO639.swift"),
                 .product(name: "SearchField", package: "SearchField.swift")
             ],
-            resources: [.process("Resources")]),
+            resources: [.process("Resources")]
+        ),
         .testTarget(
             name: "LanguageListTests",
             dependencies: ["LanguageList"]),

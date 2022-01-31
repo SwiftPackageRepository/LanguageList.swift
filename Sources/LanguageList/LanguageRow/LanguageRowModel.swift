@@ -40,7 +40,7 @@ internal class LanguageRowModel: ObservableObject, Identifiable, Hashable, Equat
     private var selectionCancelable: AnyCancellable?
 
     public convenience init(identifier: String, language: Language) {
-        self.init(identifier: identifier, language: language, style: .officialAndName)
+        self.init(identifier: identifier, language: language, style: .localizedAndOfficial)
     }
 
     public  init(identifier: String, language: Language, style: LanguageRowStyle) {    self.identifier = identifier
@@ -54,6 +54,11 @@ internal class LanguageRowModel: ObservableObject, Identifiable, Hashable, Equat
             case .officialAndName:
                 self.title = language.official.capitalized
                 self.subtitle = language.name.capitalized
+            case .localized:
+               self.title = language.localized.capitalized
+            case .localizedAndOfficial:
+               self.title = language.localized.capitalized
+               self.subtitle = language.official.capitalized
         }
         self.subscribe()
     }
@@ -61,12 +66,7 @@ internal class LanguageRowModel: ObservableObject, Identifiable, Hashable, Equat
     deinit {
         unsubscribe()
     }
-
-    func update() {
-        self.title = language.official.localizedCapitalized
-
-    }
-
+    
     func select() {
         LanguageService.shared.set(language, for: identifier)
     }
