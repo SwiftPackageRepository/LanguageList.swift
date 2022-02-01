@@ -29,7 +29,7 @@ import ISO639
 
 public class LanguageService: LanguageServiceProtocol {
 
-    static var shared = LanguageService()
+    public private(set) static var shared = LanguageService()
 
     private init() {
     }
@@ -41,24 +41,34 @@ public class LanguageService: LanguageServiceProtocol {
     deinit {
     }
 
-    public func load(identifier: String) {
+    public func load(identifier: String, defaultLanguage: Language?) {
         var selections = selections.value
-        selections[identifier] = selection(identifier: identifier)
+        selections[identifier] = selection(identifier: identifier, defaultLanguage: defaultLanguage)
         self.selections.send(selections)
     }
 
-    public func selection(identifier: String) -> Language {
+    public func load(identifier: String) {
+        load(identifier: identifier, defaultLanguage: nil)
+    }
+
+    public func selection(identifier: String, defaultLanguage: Language?) -> Language {
         if selections.value.contains(where: { $0.key == identifier }),
             let selection = selections.value[identifier] {
             return selection
         } else if let alpha1 = UserDefaults.standard.string(forKey: identifier),
            let language = Language.from(with: alpha1) {
             return language
+        } else if let defaultLanguage = defaultLanguage {
+            return defaultLanguage
         } else if let language = Language.from(with: Locale.current) {
             return language
         } else {
             return Language.from(with: .en)!
         }
+    }
+
+    public func selection(identifier: String) -> Language {
+        selection(identifier: identifier, defaultLanguage: nil)
     }
 
     public func set(_ language: Language, for identifier: String) {

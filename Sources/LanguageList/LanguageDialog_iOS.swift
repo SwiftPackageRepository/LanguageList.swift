@@ -35,6 +35,12 @@ public struct LanguageDialog: View {
     internal var selected: ((Language) -> Void)
     internal var canceled: (() -> Void)
 
+    public init(identifier: String, defaultLanguage: Language, selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
+        self.listModel = LanguageListModel(identifier: identifier, defaultLanguage: defaultLanguage)
+        self.selected = selected
+        self.canceled = canceled
+    }
+
     public init(identifier: String, selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
         self.listModel = LanguageListModel(identifier: identifier)
         self.selected = selected

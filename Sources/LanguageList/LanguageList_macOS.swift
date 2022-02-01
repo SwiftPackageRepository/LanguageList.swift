@@ -35,6 +35,11 @@ public struct LanguageList: View, Equatable, Identifiable {
     public var id = UUID()
     internal var selected: ((Language) -> Void)?
 
+    public init(identifier: String, defaultLanguage: Language, selected: @escaping (Language) -> Void) {
+        self.listModel = LanguageListModel(identifier: identifier, defaultLanguage: defaultLanguage)
+        self.selected = selected
+    }
+
     public init(identifier: String, selected: @escaping (Language) -> Void) {
         self.listModel = LanguageListModel(identifier: identifier)
         self.selected = selected
@@ -49,12 +54,7 @@ public struct LanguageList: View, Equatable, Identifiable {
         self.listModel = listModel
         self.selected = selected
     }
-
-    public func enableLanguages(_ alpha1Codes: [ISO639Alpha1]) -> LanguageList {
-        LanguageService.shared.enableLanguages(with: alpha1Codes)
-        return self
-    }
-
+    
     @ViewBuilder
     public func languageRow(by index: Int) -> some View {
         if let rowModel = listModel.row(for: index) {

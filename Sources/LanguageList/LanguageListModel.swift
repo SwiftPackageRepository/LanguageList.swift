@@ -37,20 +37,24 @@ public class LanguageListModel: ObservableObject, Equatable {
     private var filterCancelables: Set<AnyCancellable> = []
     @Published public var searchText: String = ""
 
-    public init(identifier: String) {
+    public init(identifier: String, defaultLanguage: Language?) {
         self.identifier = identifier
-        load()
+        load(defaultLanguage)
+    }
+
+    public convenience init(identifier: String) {
+        self.init(identifier: identifier, defaultLanguage: nil)
     }
 
     public convenience init() {
-        self.init(identifier: "language.alpha1")
+        self.init(identifier: "language.alpha1", defaultLanguage: nil)
     }
 
     deinit {
     }
 
-    public func load() {
-        LanguageService.shared.load(identifier: identifier)
+    public func load(_ defaultLanguage: Language?) {
+        LanguageService.shared.load(identifier: identifier, defaultLanguage: defaultLanguage)
         var languagesCancelable: AnyCancellable?
         languagesCancelable = LanguageService
             .shared
@@ -161,7 +165,10 @@ public class LanguageListModel: ObservableObject, Equatable {
 internal class MockLanguageListModel: LanguageListModel {
 
     init() {
-        super.init(identifier: "language.alpha1")
+        super.init(
+            identifier: "language.alpha1",
+            defaultLanguage: Language.from(with: .fr)
+        )
     }
 
     override var rows: [LanguageRowModel] {
