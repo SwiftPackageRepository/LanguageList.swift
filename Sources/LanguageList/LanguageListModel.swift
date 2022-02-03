@@ -29,46 +29,59 @@ import ISO639
 import SwiftUI
 
 public class LanguageListModel: ObservableObject, Equatable {
-
+    public static let DefaultIdentifier = "language.alpha1"
     private var identifier: String
-
     private var languages: [Language]?
 
     private var filterCancelables: Set<AnyCancellable> = []
     @Published public var searchText: String = ""
 
-    public init(identifier: String, defaultLanguage: Language?) {
+    public init(identifier: String, initial: ISO639Alpha1?, enabled: [ISO639Alpha1]?) {
         self.identifier = identifier
-        load(defaultLanguage)
+        self.load(initial: initial, enabled: enabled)
     }
 
-    public convenience init(identifier: String) {
-        self.init(identifier: identifier, defaultLanguage: nil)
+    public init(identifier: String) {
+        self.identifier = identifier
+        self.load()
+        self.subscribe()
     }
 
-    public convenience init() {
-        self.init(identifier: "language.alpha1", defaultLanguage: nil)
+    public init() {
+        self.identifier = LanguageListModel.DefaultIdentifier
+        self.load()
     }
 
     deinit {
+        self.unsubscribe()
     }
 
-    public func load(_ defaultLanguage: Language?) {
-        LanguageService.shared.load(identifier: identifier, defaultLanguage: defaultLanguage)
-        var languagesCancelable: AnyCancellable?
-        languagesCancelable = LanguageService
-            .shared
-            .languages
-            .subscribe(on: DispatchQueue.global(qos: .background))
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] (languages: [Language]) in
-                self?.load(languages: languages)
-                languagesCancelable?.cancel()
-                languagesCancelable = nil
-            })
+    public func load() {
+        load(initial: nil, enabled: nil)
+    }
+    
+    public func load(initial: ISO639Alpha1?, enabled: [ISO639Alpha1]?) {
+        LanguageService.shared.load(
+            identifier: identifier,
+            initial: initial,
+            enabled: enabled
+        )
+        if let languages = enabled?.languages {
+            self.languages = languages
+            rows = Self.rows(
+                identifier: identifier,
+                languages: languages
+            )
+        } else if let languages = LanguageService.shared.enabledLanguages.value[identifier] {
+            self.languages = languages
+            rows = Self.rows(
+                identifier: identifier,
+                languages: languages
+            )
+        }
     }
 
-    public func subscribe() {
+    private func subscribe() {
         $searchText
             .debounce(for: .milliseconds(250), scheduler: RunLoop.main)
             .removeDuplicates()
@@ -89,23 +102,15 @@ public class LanguageListModel: ObservableObject, Equatable {
             .store(in: &filterCancelables)
     }
 
-    public func unsubscribe() {
+    private func unsubscribe() {
         filterCancelables.forEach({ $0.cancel() })
         filterCancelables.removeAll()
     }
 
     @Published internal private(set) var rows: [LanguageRowModel] = []
 
-    internal func row(for index: Int) -> LanguageRowModel? {
+    private func row(for index: Int) -> LanguageRowModel? {
         return rows[safe: index]
-    }
-    
-    private func load(languages: [Language]) {
-        self.languages = languages
-        rows = Self.rows(
-            identifier: self.identifier,
-            languages: languages
-        )
     }
 
     private func resetFilter() {
@@ -129,10 +134,11 @@ public class LanguageListModel: ObservableObject, Equatable {
     private func filter(with searchText: String, languages: [Language]) -> [Language] {
         if searchText.isEmpty == false {
             return languages.filter {
-                $0.official.range(of: searchText, options: .caseInsensitive) != nil
-                    || $0.name.range(of: searchText, options: .caseInsensitive) != nil
-                    || $0.alpha1.rawValue.range(of: searchText, options: .caseInsensitive) != nil
-                    || $0.alpha2.rawValue.range(of: searchText, options: .caseInsensitive) != nil
+                $0.localized.range(of: searchText, options: .caseInsensitive) != nil
+                || $0.official.range(of: searchText, options: .caseInsensitive) != nil
+                || $0.name.range(of: searchText, options: .caseInsensitive) != nil
+                || $0.alpha1.rawValue.range(of: searchText, options: .caseInsensitive) != nil
+                || $0.alpha2.rawValue.range(of: searchText, options: .caseInsensitive) != nil
             }
         } else {
             return languages
@@ -163,13 +169,6 @@ public class LanguageListModel: ObservableObject, Equatable {
 #if DEBUG
 
 internal class MockLanguageListModel: LanguageListModel {
-
-    init() {
-        super.init(
-            identifier: "language.alpha1",
-            defaultLanguage: Language.from(with: .fr)
-        )
-    }
 
     override var rows: [LanguageRowModel] {
         return [

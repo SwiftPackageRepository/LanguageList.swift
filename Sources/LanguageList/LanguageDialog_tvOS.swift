@@ -34,9 +34,9 @@ public struct LanguageDialog: View {
     @ObservedObject var listModel: LanguageListModel
     internal var selected: ((Language) -> Void)
     internal var canceled: (() -> Void)
-    
-    public init(identifier: String, defaultLanguage: Language, selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
-        self.listModel = LanguageListModel(identifier: identifier, defaultLanguage: defaultLanguage)
+
+    public init(identifier: String, initial: ISO639Alpha1, enabled: [ISO639Alpha1], selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
+        self.listModel = LanguageListModel(identifier: identifier, initial: initial, enabled: enabled)
         self.selected = selected
         self.canceled = canceled
     }

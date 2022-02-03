@@ -27,18 +27,15 @@ import Combine
 import ISO639
 
 public protocol LanguageServiceProtocol {
-
-    func load(identifier: String, defaultLanguage: Language?)
+    func load(identifier: String, initial: ISO639Alpha1?, enabled: [ISO639Alpha1]?)
     func load(identifier: String)
-    func selection(identifier: String, defaultLanguage: Language?) -> Language
+    
+    func selection(identifier: String, initial: ISO639Alpha1?) -> Language
     func selection(identifier: String) -> Language
-    var enabledLanguages: [Language] { get }
 
     var selections: CurrentValueSubject<[String:Language], Never> { get }
-    var languages: CurrentValueSubject<[Language], Never> { get }
+    var enabledLanguages: CurrentValueSubject<[String:[Language]], Never> { get }
 
     func set(_ language: Language, for identifier: String)
     func set(_ alpha1Code: ISO639Alpha1, for identifier: String)
-
-    func enableLanguages(with alpha1Codes: [ISO639Alpha1])
 }

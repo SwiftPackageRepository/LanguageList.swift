@@ -23,7 +23,6 @@
 ///
 /// Created by Sascha Müllner on 07.01.22.
 
-
 import SwiftUI
 
 internal extension Color {

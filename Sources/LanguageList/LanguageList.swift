@@ -36,8 +36,8 @@ public struct LanguageList: View, Equatable, Identifiable {
     public var id = UUID()
     internal var selected: ((Language) -> Void)?
 
-    public init(identifier: String, defaultLanguage: Language, selected: @escaping (Language) -> Void) {
-        self.listModel = LanguageListModel(identifier: identifier, defaultLanguage: defaultLanguage)
+    public init(identifier: String, initial: ISO639Alpha1, enabled: [ISO639Alpha1], selected: @escaping (Language) -> Void) {
+        self.listModel = LanguageListModel(identifier: identifier, initial: initial, enabled: enabled)
         self.selected = selected
     }
 
@@ -76,12 +76,6 @@ public struct LanguageList: View, Equatable, Identifiable {
             }
         }
         .id(id)
-        .onAppear {
-            listModel.subscribe()
-        }
-        .onDisappear {
-            listModel.unsubscribe()
-        }
     }
 
     public static func == (lhs: LanguageList, rhs: LanguageList) -> Bool {

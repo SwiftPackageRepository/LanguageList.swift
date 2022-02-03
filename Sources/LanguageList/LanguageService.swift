@@ -34,32 +34,45 @@ public class LanguageService: LanguageServiceProtocol {
     private init() {
     }
 
-    public private(set) var enabledLanguages: [Language] = []
     public private(set) var selections = CurrentValueSubject<[String:Language], Never>([:])
-    public private(set) var languages = CurrentValueSubject<[Language], Never>(Language.all)
+    public private(set) var enabledLanguages = CurrentValueSubject<[String:[Language]], Never>([:])
 
     deinit {
     }
 
-    public func load(identifier: String, defaultLanguage: Language?) {
-        var selections = selections.value
-        selections[identifier] = selection(identifier: identifier, defaultLanguage: defaultLanguage)
-        self.selections.send(selections)
+    public func load(identifier: String, initial: ISO639Alpha1?, enabled: [ISO639Alpha1]?) {
+        if selections.value[identifier] == nil {
+            var selections = selections.value
+            selections[identifier] = selection(identifier: identifier, initial: initial)
+            self.selections.send(selections)
+        }
+        if enabledLanguages.value[identifier] == nil {
+            if let languages = enabled?.languages {
+                var enabledLanguages = enabledLanguages.value
+                enabledLanguages[identifier] = languages
+                self.enabledLanguages.send(enabledLanguages)
+            } else {
+                var enabledLanguages = enabledLanguages.value
+                enabledLanguages[identifier] = Language.all
+                self.enabledLanguages.send(enabledLanguages)
+            }
+        }
     }
 
     public func load(identifier: String) {
-        load(identifier: identifier, defaultLanguage: nil)
+        load(identifier: identifier, initial: nil, enabled: nil)
     }
 
-    public func selection(identifier: String, defaultLanguage: Language?) -> Language {
+    public func selection(identifier: String, initial: ISO639Alpha1?) -> Language {
         if selections.value.contains(where: { $0.key == identifier }),
             let selection = selections.value[identifier] {
             return selection
         } else if let alpha1 = UserDefaults.standard.string(forKey: identifier),
            let language = Language.from(with: alpha1) {
             return language
-        } else if let defaultLanguage = defaultLanguage {
-            return defaultLanguage
+        } else if let initial = initial,
+                  let language = Language.from(with: initial) {
+            return language
         } else if let language = Language.from(with: Locale.current) {
             return language
         } else {
@@ -68,7 +81,7 @@ public class LanguageService: LanguageServiceProtocol {
     }
 
     public func selection(identifier: String) -> Language {
-        selection(identifier: identifier, defaultLanguage: nil)
+        selection(identifier: identifier, initial: nil)
     }
 
     public func set(_ language: Language, for identifier: String) {
@@ -83,13 +96,5 @@ public class LanguageService: LanguageServiceProtocol {
     public func set(_ alpha1Code: ISO639Alpha1, for identifier: String) {
         guard let language = Language.from(with: alpha1Code) else { return }
         set(language, for: identifier)
-    }
-
-
-    public func enableLanguages(with alpha1Codes: [ISO639Alpha1]) {
-        enabledLanguages = alpha1Codes.compactMap { (alpha1Code) -> Language? in
-            Language.from(with: alpha1Code)
-        }
-        languages.send(enabledLanguages)
     }
 }
