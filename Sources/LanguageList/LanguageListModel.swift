@@ -109,7 +109,7 @@ public class LanguageListModel: ObservableObject, Equatable {
 
     @Published internal private(set) var rows: [LanguageRowModel] = []
 
-    private func row(for index: Int) -> LanguageRowModel? {
+    internal func row(for index: Int) -> LanguageRowModel? {
         return rows[safe: index]
     }
 
