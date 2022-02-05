@@ -34,19 +34,19 @@ public struct LanguageList: View, Equatable, Identifiable {
 
     public var id = UUID()
     internal var selected: ((Language) -> Void)?
-
-    public init(identifier: String, initial: ISO639Alpha1, enabled: [ISO639Alpha1], selected: @escaping (Language) -> Void) {
-        self.listModel = LanguageListModel(identifier: identifier, initial: initial, enabled: enabled)
+    
+    public init(identifier: String, style: LanguageRowStyle, initial: ISO639Alpha1, enabled: [ISO639Alpha1], selected: @escaping (Language) -> Void) {
+        self.listModel = LanguageListModel(identifier: identifier, style: style, initial: initial, enabled: enabled)
         self.selected = selected
     }
 
-    public init(identifier: String, selected: @escaping (Language) -> Void) {
-        self.listModel = LanguageListModel(identifier: identifier)
+    public init(identifier: String, style: LanguageRowStyle, selected: @escaping (Language) -> Void) {
+        self.listModel = LanguageListModel(identifier: identifier, style: style)
         self.selected = selected
     }
 
-    public init(selected: @escaping (Language) -> Void) {
-        self.listModel = LanguageListModel()
+    public init(style: LanguageRowStyle, selected: @escaping (Language) -> Void) {
+        self.listModel = LanguageListModel(style: style)
         self.selected = selected
     }
 
@@ -63,7 +63,6 @@ public struct LanguageList: View, Equatable, Identifiable {
                 action: {
                     selected?(rowModel.language)
                 })
-                .frame(height: 42)
                 .padding(0)
                 .clipShape(Rectangle())
         } else {
@@ -95,19 +94,19 @@ public struct LanguageList: View, Equatable, Identifiable {
 struct LanguageList_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LanguageList() { language in
+            LanguageList(style: .localizedAndOfficial) { language in
             }
-            LanguageList() { language in
+            LanguageList(style: .officialAndName) { language in
             }
             .environment(\.colorScheme, .light)
-            LanguageList() { language in
+            LanguageList(style: .official) { language in
             }
             .environment(\.colorScheme, .dark)
-            LanguageList() { language in
+            LanguageList(style: .localized) { language in
             }
             .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)
             NavigationView {
-                LanguageList() { language in
+                LanguageList(style: .localizedAndOfficial) { language in
                 }
             }
         }

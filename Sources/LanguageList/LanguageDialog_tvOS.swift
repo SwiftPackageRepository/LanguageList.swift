@@ -35,20 +35,20 @@ public struct LanguageDialog: View {
     internal var selected: ((Language) -> Void)
     internal var canceled: (() -> Void)
 
-    public init(identifier: String, initial: ISO639Alpha1, enabled: [ISO639Alpha1], selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
-        self.listModel = LanguageListModel(identifier: identifier, initial: initial, enabled: enabled)
+    public init(identifier: String, style: LanguageRowStyle, initial: ISO639Alpha1, enabled: [ISO639Alpha1], selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
+        self.listModel = LanguageListModel(identifier: identifier, style: style, initial: initial, enabled: enabled)
         self.selected = selected
         self.canceled = canceled
     }
 
-    public init(identifier: String, selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
-        self.listModel = LanguageListModel(identifier: identifier)
+    public init(identifier: String, style: LanguageRowStyle, selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
+        self.listModel = LanguageListModel(identifier: identifier, style: style)
         self.selected = selected
         self.canceled = canceled
     }
 
-    public init(selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
-        self.listModel = LanguageListModel()
+    public init(style: LanguageRowStyle, selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
+        self.listModel = LanguageListModel(style: style)
         self.selected = selected
         self.canceled = canceled
     }

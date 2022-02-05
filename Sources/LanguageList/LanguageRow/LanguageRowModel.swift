@@ -27,7 +27,7 @@ import Combine
 import Foundation
 import ISO639
 
-internal class LanguageRowModel: ObservableObject, Identifiable, Hashable, Equatable {
+internal class LanguageRowModel: ObservableObject, Identifiable, Hashable, Equatable, Comparable {
 
     public var id = UUID()
     internal let identifier: String
@@ -39,11 +39,8 @@ internal class LanguageRowModel: ObservableObject, Identifiable, Hashable, Equat
 
     private var selectionCancelable: AnyCancellable?
 
-    public convenience init(identifier: String, language: Language) {
-        self.init(identifier: identifier, language: language, style: .localizedAndOfficial)
-    }
-
-    public  init(identifier: String, language: Language, style: LanguageRowStyle) {    self.identifier = identifier
+    public init(identifier: String, language: Language, style: LanguageRowStyle) {
+        self.identifier = identifier
         self.language = language
         self.style = style
         switch style {
@@ -102,6 +99,29 @@ internal class LanguageRowModel: ObservableObject, Identifiable, Hashable, Equat
     public static func == (lhs: LanguageRowModel, rhs: LanguageRowModel) -> Bool {
         lhs.language == rhs.language && lhs.isSelected == rhs.isSelected
     }
+
+    public static func < (lhs: LanguageRowModel, rhs: LanguageRowModel) -> Bool {
+        switch lhs.style {
+            case .localized:
+                return lhs.language.localized < rhs.language.localized
+            case .localizedAndOfficial:
+                return lhs.language.localized < rhs.language.localized ||
+                (
+                    lhs.language.localized == rhs.language.localized &&
+                    lhs.language.official < rhs.language.official
+                )
+            case .official:
+                return lhs.language.official < rhs.language.official
+            case .officialAndName:
+                return lhs.language.official < rhs.language.official ||
+                (
+                    lhs.language.official == rhs.language.official &&
+                    lhs.language.name < rhs.language.name
+                )
+            case .name:
+                return lhs.language.name < rhs.language.name
+        }
+    }
 }
 
 #if DEBUG
@@ -110,19 +130,22 @@ extension LanguageRowModel {
     static var english: LanguageRowModel {
         LanguageRowModel(
             identifier: UUID().uuidString,
-            language: Language.from(with: .en)!
+            language: Language.from(with: .en)!,
+            style: .localizedAndOfficial
         )
     }
     static var french: LanguageRowModel {
         LanguageRowModel(
             identifier: UUID().uuidString,
-            language: Language.from(with: .fr)!
+            language: Language.from(with: .fr)!,
+            style: .localized
         )
     }
     static var german: LanguageRowModel {
         LanguageRowModel(
             identifier: UUID().uuidString,
-            language: Language.from(with: .de)!
+            language: Language.from(with: .de)!,
+            style: .officialAndName
         )
     }
 }

@@ -40,7 +40,7 @@ internal struct LanguageRow: View, Equatable {
 
     @ViewBuilder
     public var body: some View {
-        HStack {
+        HStack(alignment: .center, spacing: 8) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(rowModel.title)
                     .foregroundColor(Color.list.primary)
@@ -62,6 +62,7 @@ internal struct LanguageRow: View, Equatable {
             }
         }
         .padding(.horizontal, 16)
+        .padding(.vertical, 8)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .clipShape(Rectangle())
         .contentShape(Rectangle())

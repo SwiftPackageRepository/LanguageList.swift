@@ -35,20 +35,24 @@ public class LanguageListModel: ObservableObject, Equatable {
 
     private var filterCancelables: Set<AnyCancellable> = []
     @Published public var searchText: String = ""
+    @Published public var style: LanguageRowStyle
 
-    public init(identifier: String, initial: ISO639Alpha1?, enabled: [ISO639Alpha1]?) {
+    public init(identifier: String, style: LanguageRowStyle, initial: ISO639Alpha1?, enabled: [ISO639Alpha1]?) {
         self.identifier = identifier
+        self.style = style
         self.load(initial: initial, enabled: enabled)
     }
 
-    public init(identifier: String) {
+    public init(identifier: String, style: LanguageRowStyle) {
         self.identifier = identifier
+        self.style = style
         self.load()
         self.subscribe()
     }
 
-    public init() {
+    public init(style: LanguageRowStyle) {
         self.identifier = LanguageListModel.DefaultIdentifier
+        self.style = style
         self.load()
     }
 
@@ -70,13 +74,15 @@ public class LanguageListModel: ObservableObject, Equatable {
             self.languages = languages
             rows = Self.rows(
                 identifier: identifier,
-                languages: languages
+                languages: languages,
+                style: style
             )
         } else if let languages = LanguageService.shared.enabledLanguages.value[identifier] {
             self.languages = languages
             rows = Self.rows(
                 identifier: identifier,
-                languages: languages
+                languages: languages,
+                style: style
             )
         }
     }
@@ -117,8 +123,9 @@ public class LanguageListModel: ObservableObject, Equatable {
         guard let languages = self.languages else { return }
         guard rows.count != languages.count else { return }
         rows = Self.rows(
-            identifier: self.identifier,
-            languages: languages
+            identifier: identifier,
+            languages: languages,
+            style: style
         )
     }
 
@@ -126,8 +133,9 @@ public class LanguageListModel: ObservableObject, Equatable {
         guard let languages = self.languages else { return }
         let filteredLanguages = filter(with: searchText, languages: languages)
         rows = Self.rows(
-            identifier: self.identifier,
-            languages: filteredLanguages
+            identifier: identifier,
+            languages: filteredLanguages,
+            style: style
         )
     }
 
@@ -145,13 +153,14 @@ public class LanguageListModel: ObservableObject, Equatable {
         }
     }
 
-    private static func rows(identifier: String, languages: [Language]) -> [LanguageRowModel] {
+    private static func rows(identifier: String, languages: [Language], style: LanguageRowStyle) -> [LanguageRowModel] {
         let rows = languages.map { (language) -> LanguageRowModel in
             LanguageRowModel(
                 identifier: identifier,
-                language: language
+                language: language,
+                style: style
             )
-        }
+        }.sorted()
         return rows
     }
 

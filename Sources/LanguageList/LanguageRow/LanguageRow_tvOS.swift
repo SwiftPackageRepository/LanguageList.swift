@@ -31,17 +31,10 @@ import ISO639
 internal struct LanguageRow: View, Equatable {
 
     let action: () -> Void
-    var style: LanguageRowStyle = .checkmark
     @ObservedObject var rowModel: LanguageRowModel
 
     public init(rowModel: LanguageRowModel, action: @escaping () -> Void) {
         self.rowModel = rowModel
-        self.action = action
-    }
-
-    public init(rowModel: LanguageRowModel, style: LanguageRowStyle, action: @escaping () -> Void) {
-        self.rowModel = rowModel
-        self.style = style
         self.action = action
     }
 

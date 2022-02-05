@@ -30,48 +30,52 @@ import SwiftUI
 import SearchField
 
 public struct LanguageDialog: View {
+
+    public var id = UUID()
     
     @ObservedObject var listModel: LanguageListModel
     internal var selected: ((Language) -> Void)
     internal var canceled: (() -> Void)
 
-    public init(identifier: String, initial: ISO639Alpha1, enabled: [ISO639Alpha1], selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
-        self.listModel = LanguageListModel(identifier: identifier, initial: initial, enabled: enabled)
+    public init(identifier: String, style: LanguageRowStyle, initial: ISO639Alpha1, enabled: [ISO639Alpha1], selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
+        self.listModel = LanguageListModel(identifier: identifier, style: style, initial: initial, enabled: enabled)
         self.selected = selected
         self.canceled = canceled
     }
 
-    public init(identifier: String, selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
-        self.listModel = LanguageListModel(identifier: identifier)
+    public init(identifier: String, style: LanguageRowStyle, selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
+        self.listModel = LanguageListModel(identifier: identifier, style: style)
         self.selected = selected
         self.canceled = canceled
     }
 
-    public init(selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
-        self.listModel = LanguageListModel()
+    public init(style: LanguageRowStyle, selected: @escaping (Language) -> Void, canceled: @escaping () -> Void) {
+        self.listModel = LanguageListModel(style: style)
         self.selected = selected
         self.canceled = canceled
     }
 
     @ViewBuilder
     public var body: some View {
-        LanguageList(listModel) { language in
-            selected(language)
-        }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
-        .navigationTitle(LanguageListModel.Localized.navigationTitle)
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
+        VStack(alignment: .center, spacing: 0) {
+            HStack(alignment: .center, spacing: 8) {
                 SearchField(text: $listModel.searchText)
-                    .frame(minWidth: 100, idealWidth: 200, maxWidth: .infinity)
-            }
-            ToolbarItem(placement: .cancellationAction) {
-                Button(LanguageListModel.Localized.cancel, action: {
+                ToolbarButton {
+                    Text(LanguageListModel.Localized.cancel)
+                        .foregroundColor(.accentColor)
+                        .font(.body)
+                } action: {
                     canceled()
-                })
-                .keyboardShortcut(.cancelAction)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            LanguageList(listModel) { language in
+                selected(language)
             }
         }
+        .id(id)
+        .navigationTitle(LanguageListModel.Localized.navigationTitle)
         .frame(minWidth: 320, maxWidth: .infinity, minHeight: 320, maxHeight: .infinity)
     }
 }

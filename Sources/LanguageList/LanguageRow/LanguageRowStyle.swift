@@ -23,7 +23,7 @@
 ///
 /// Created by Sascha Müllner on 07.01.22.
 
-internal enum LanguageRowStyle {
+public enum LanguageRowStyle {
     case official
     case name
     case officialAndName
