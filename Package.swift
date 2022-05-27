@@ -20,11 +20,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/SwiftPackageRepository/ISO639.swift.git",
-            from: "1.3.1"
+            from: "1.3.2"
         ),
         .package(
             url: "https://github.com/SwiftPackageRepository/SearchField.swift.git",
-            from: "1.0.1"
+            from: "1.1.1"
         )
     ],
     targets: [

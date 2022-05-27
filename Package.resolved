@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/SwiftPackageRepository/ISO639.swift.git",
         "state": {
           "branch": null,
-          "revision": "3b8a646ae61506e520225070c8932e35ab08371c",
-          "version": "1.3.1"
+          "revision": "92cb77c9b0da6ec1d9ad5fd8043257c90ccc0a65",
+          "version": "1.3.2"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/SwiftPackageRepository/SearchField.swift.git",
         "state": {
           "branch": null,
-          "revision": "9354e7be49fdd3d6c71d2f2089bf062c99e40324",
-          "version": "1.0.1"
+          "revision": "bad4586109bb4ff284e234e9cca994c52651b05f",
+          "version": "1.1.1"
         }
       }
     ]
