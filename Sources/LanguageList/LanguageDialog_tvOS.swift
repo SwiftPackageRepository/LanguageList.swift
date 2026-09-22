@@ -78,7 +78,7 @@ public struct LanguageDialog: View {
 
 #if DEBUG
 
-struct LanguageList_Previews: PreviewProvider {
+struct LanguageDialogTVOS_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             LanguageList(language: .constant(Language.from(with: .en)!)) {

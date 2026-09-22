@@ -68,10 +68,10 @@ internal extension Color {
 
     #elseif os(tvOS)
 
-    static let background = Color(UIColor.systemBackground)
+    static let background = Color.black
     static let navigationBarBackground = Color(UINavigationBar.appearance().backgroundColor ?? UIColor.systemGray)
     static let separator = Color(UIColor.separator)
-    static var alternatingContentBackgroundColors = [ Color(UIColor.systemBackground) ]
+    static var alternatingContentBackgroundColors = [ Color.black ]
 
     #else
 
