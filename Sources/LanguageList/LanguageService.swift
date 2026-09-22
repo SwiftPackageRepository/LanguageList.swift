@@ -29,7 +29,7 @@ import ISO639
 
 public class LanguageService: LanguageServiceProtocol {
 
-    public private(set) static var shared = LanguageService()
+    public static let shared = LanguageService()
 
     private init() {
     }
