@@ -27,7 +27,6 @@
 
 import ISO639
 import SwiftUI
-import SearchField
 
 public struct LanguageDialog: View {
 
@@ -59,7 +58,8 @@ public struct LanguageDialog: View {
     public var body: some View {
         VStack(alignment: .center, spacing: 0) {
             HStack(alignment: .center, spacing: 8) {
-                SearchField(text: $listModel.searchText)
+                TextField("Search", text: $listModel.searchText)
+                    .textFieldStyle(.roundedBorder)
                 ToolbarButton {
                     Text(LanguageListModel.Localized.cancel)
                         .foregroundColor(.accentColor)

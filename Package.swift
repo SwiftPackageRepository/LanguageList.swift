@@ -22,17 +22,12 @@ let package = Package(
             url: "https://github.com/SwiftPackageRepository/ISO639.swift.git",
             from: "1.3.2"
         ),
-        .package(
-            url: "https://github.com/SwiftPackageRepository/SearchField.swift.git",
-            from: "1.1.1"
-        )
     ],
     targets: [
         .target(
             name: "LanguageList",
             dependencies: [
                 .product(name: "ISO639", package: "ISO639.swift"),
-                .product(name: "SearchField", package: "SearchField.swift")
             ],
             resources: [.process("Resources")]
         ),
