@@ -20,7 +20,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/SwiftPackageRepository/ISO639.swift.git",
-            revision: "c71ab6b78995fd750df89bc1e786334c78201993"
+            revision: "92cb77c9b0da6ec1d9ad5fd8043257c90ccc0a65"
         ),
     ],
     targets: [
