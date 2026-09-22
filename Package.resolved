@@ -7,9 +7,9 @@
         "state": {
           "branch": null,
           "revision": "92cb77c9b0da6ec1d9ad5fd8043257c90ccc0a65",
-          "version": "1.3.2"
+          "version": null
         }
-      },
+      }
     ]
   },
   "version": 1
