@@ -27,7 +27,7 @@ import Combine
 import Foundation
 import ISO639
 
-internal class LanguageRowModel: ObservableObject, Identifiable, Hashable, Equatable, Comparable {
+internal final class LanguageRowModel: ObservableObject, Identifiable, Hashable, Equatable, Comparable {
 
     public var id = UUID()
     internal let identifier: String

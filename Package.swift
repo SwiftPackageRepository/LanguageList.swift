@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -26,10 +26,12 @@ let package = Package(
             dependencies: [
                 .product(name: "ISO639", package: "ISO639.swift"),
             ],
-            resources: [.process("Resources")]
+            resources: [.process("Resources")],
+            swiftSettings: [.swiftLanguageMode(.v5)]
         ),
         .testTarget(
             name: "LanguageListTests",
-            dependencies: ["LanguageList"]),
+            dependencies: ["LanguageList"],
+            swiftSettings: [.swiftLanguageMode(.v5)]),
     ]
 )

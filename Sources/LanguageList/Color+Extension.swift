@@ -64,14 +64,14 @@ internal extension Color {
     static let background = Color(NSColor.windowBackgroundColor)
     static let navigationBarBackground = Color(NSColor.controlBackgroundColor)
     static let separator = Color(NSColor.separatorColor)
-    static var alternatingContentBackgroundColors = NSColor.alternatingContentBackgroundColors.map({Color($0)})
+    static let alternatingContentBackgroundColors = NSColor.alternatingContentBackgroundColors.map({Color($0)})
 
     #elseif os(tvOS)
 
     static let background = Color.black
     static let navigationBarBackground = Color(UINavigationBar.appearance().backgroundColor ?? UIColor.systemGray)
     static let separator = Color(UIColor.separator)
-    static var alternatingContentBackgroundColors = [ Color.black ]
+    static let alternatingContentBackgroundColors = [ Color.black ]
 
     #else
 
@@ -90,7 +90,7 @@ internal extension Color {
         }
     }
     static let separator = Color(UIColor.separator)
-    static var alternatingContentBackgroundColors = [ Color(UIColor.systemBackground) ]
+    static let alternatingContentBackgroundColors = [ Color(UIColor.systemBackground) ]
 
     #endif
 }

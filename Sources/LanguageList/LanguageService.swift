@@ -27,7 +27,7 @@ import Combine
 import Foundation
 import ISO639
 
-public class LanguageService: LanguageServiceProtocol {
+public final class LanguageService: LanguageServiceProtocol {
 
     public static let shared = LanguageService()
 
