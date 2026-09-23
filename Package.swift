@@ -18,10 +18,7 @@ let package = Package(
             targets: ["LanguageList"]),
     ],
     dependencies: [
-        .package(
-            url: "https://github.com/SwiftPackageRepository/ISO639.swift.git",
-            revision: "92cb77c9b0da6ec1d9ad5fd8043257c90ccc0a65"
-        ),
+        .package(path: "../ISO639.swift"),
     ],
     targets: [
         .target(
