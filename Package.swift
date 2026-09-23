@@ -19,12 +19,14 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../ISO639.swift"),
+        .package(path: "../../../repositories/wb/Packages/SwiftUIPlus.swift"),
     ],
     targets: [
         .target(
             name: "LanguageList",
             dependencies: [
                 .product(name: "ISO639", package: "ISO639.swift"),
+                .product(name: "SwiftUIPlus", package: "SwiftUIPlus.swift"),
             ],
             resources: [.process("Resources")],
             swiftSettings: [.swiftLanguageMode(.v5)]

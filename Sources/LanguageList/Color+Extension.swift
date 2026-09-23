@@ -24,6 +24,7 @@
 /// Created by Sascha Müllner on 07.01.22.
 
 import SwiftUI
+import SwiftUIPlus
 
 internal extension Color {
     struct Component {
@@ -47,50 +48,38 @@ internal extension Color {
     }
 
     static let list = List(
-        background: Color.background,
-        primary: Color.primary,
-        secondary: Color.secondary,
-        selected: Color.accentColor,
-        rows: Color.alternatingContentBackgroundColors
+        background: Theme.color.list.background,
+        primary: Theme.color.label.primary,
+        secondary: Theme.color.label.tertiary,
+        selected: Theme.color.list.selected,
+        rows: Theme.color.list.rows
     )
 
     static let navigationBar = Component(
-        foreground: Color.primary,
-        background: Color.navigationBarBackground
+        foreground: Theme.color.navigationBar.foreground,
+        background: Theme.color.navigationBar.background
     )
 
     #if os(macOS)
 
-    static let background = Color(NSColor.windowBackgroundColor)
-    static let navigationBarBackground = Color(NSColor.controlBackgroundColor)
-    static let separator = Color(NSColor.separatorColor)
-    static let alternatingContentBackgroundColors = NSColor.alternatingContentBackgroundColors.map({Color($0)})
+    static let background = Theme.color.background.primary
+    static let navigationBarBackground = Theme.color.navigationBar.background
+    static let separator = Theme.color.list.separator
+    static let alternatingContentBackgroundColors = Theme.color.list.rows
 
     #elseif os(tvOS)
 
-    static let background = Color.black
-    static let navigationBarBackground = Color(UINavigationBar.appearance().backgroundColor ?? UIColor.systemGray)
-    static let separator = Color(UIColor.separator)
-    static let alternatingContentBackgroundColors = [ Color.black ]
+    static let background = Theme.color.background.primary
+    static let navigationBarBackground = Theme.color.navigationBar.background
+    static let separator = Theme.color.list.separator
+    static let alternatingContentBackgroundColors = Theme.color.list.rows
 
     #else
 
-    static let background = Color(UIColor.systemBackground)
-    static var navigationBarBackground: Color {
-        if #available(iOS 13, *) {
-            return Color(UIColor { (traitCollection: UITraitCollection) -> UIColor in
-                if traitCollection.userInterfaceStyle == .dark {
-                    return UIColor(red: 0.0714, green: 0.0768, blue: 0.0768, alpha: 1)
-                } else {
-                    return UIColor(red: 0.973, green: 0.973, blue: 0.973, alpha: 1)
-                }
-            })
-        } else {
-            return Color(UIColor(red: 0.973, green: 0.973, blue: 0.973, alpha: 1))
-        }
-    }
-    static let separator = Color(UIColor.separator)
-    static let alternatingContentBackgroundColors = [ Color(UIColor.systemBackground) ]
+    static let background = Theme.color.background.primary
+    static let navigationBarBackground = Theme.color.navigationBar.background
+    static let separator = Theme.color.list.separator
+    static let alternatingContentBackgroundColors = Theme.color.list.rows
 
     #endif
 }
