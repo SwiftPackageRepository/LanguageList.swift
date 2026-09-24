@@ -18,8 +18,14 @@ let package = Package(
             targets: ["LanguageList"]),
     ],
     dependencies: [
-        .package(path: "../ISO639.swift"),
-        .package(path: "../../../repositories/wb/Packages/SwiftUIPlus.swift"),
+        .package(
+            url: "https://github.com/SwiftPackageRepository/ISO639.swift.git",
+            exact: "1.4.0"
+        ),
+        .package(
+            url: "https://github.com/Webblazer/SwiftUIPlus.swift.git",
+            exact: "0.2.0"
+        ),
     ],
     targets: [
         .target(

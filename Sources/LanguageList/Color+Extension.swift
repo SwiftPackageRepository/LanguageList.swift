@@ -48,38 +48,38 @@ internal extension Color {
     }
 
     static let list = List(
-        background: Theme.color.list.background,
-        primary: Theme.color.label.primary,
-        secondary: Theme.color.label.tertiary,
-        selected: Theme.color.list.selected,
-        rows: Theme.color.list.rows
+        background: AppTheme.treasureChest.colors.list.background,
+        primary: AppTheme.treasureChest.colors.label.primary,
+        secondary: AppTheme.treasureChest.colors.label.tertiary,
+        selected: AppTheme.treasureChest.colors.list.selected,
+        rows: AppTheme.treasureChest.colors.list.rows
     )
 
     static let navigationBar = Component(
-        foreground: Theme.color.navigationBar.foreground,
-        background: Theme.color.navigationBar.background
+        foreground: AppTheme.treasureChest.colors.navigationBar.foreground,
+        background: AppTheme.treasureChest.colors.navigationBar.background
     )
 
     #if os(macOS)
 
-    static let background = Theme.color.background.primary
-    static let navigationBarBackground = Theme.color.navigationBar.background
-    static let separator = Theme.color.list.separator
-    static let alternatingContentBackgroundColors = Theme.color.list.rows
+    static let background = AppTheme.treasureChest.colors.background.primary
+    static let navigationBarBackground = AppTheme.treasureChest.colors.navigationBar.background
+    static let separator = AppTheme.treasureChest.colors.list.separator
+    static let alternatingContentBackgroundColors = AppTheme.treasureChest.colors.list.rows
 
     #elseif os(tvOS)
 
-    static let background = Theme.color.background.primary
-    static let navigationBarBackground = Theme.color.navigationBar.background
-    static let separator = Theme.color.list.separator
-    static let alternatingContentBackgroundColors = Theme.color.list.rows
+    static let background = AppTheme.treasureChest.colors.background.primary
+    static let navigationBarBackground = AppTheme.treasureChest.colors.navigationBar.background
+    static let separator = AppTheme.treasureChest.colors.list.separator
+    static let alternatingContentBackgroundColors = AppTheme.treasureChest.colors.list.rows
 
     #else
 
-    static let background = Theme.color.background.primary
-    static let navigationBarBackground = Theme.color.navigationBar.background
-    static let separator = Theme.color.list.separator
-    static let alternatingContentBackgroundColors = Theme.color.list.rows
+    static let background = AppTheme.treasureChest.colors.background.primary
+    static let navigationBarBackground = AppTheme.treasureChest.colors.navigationBar.background
+    static let separator = AppTheme.treasureChest.colors.list.separator
+    static let alternatingContentBackgroundColors = AppTheme.treasureChest.colors.list.rows
 
     #endif
 }
