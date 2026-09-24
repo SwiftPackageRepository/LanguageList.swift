@@ -42,7 +42,7 @@ internal struct ToolbarButton<Content: View>: View {
             content()
         }
         .foregroundColor(Color.navigationBar.foreground)
-       // .buttonStyle(ColoredButtonStyle(buttonColors: Theme.color.primaryButton))
+       // .buttonStyle(ColoredButtonStyle(buttonColors: AppTheme.treasureChest.colors.primaryButton))
     }
 }
 
