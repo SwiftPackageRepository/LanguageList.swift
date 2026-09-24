@@ -84,13 +84,6 @@ internal struct LanguageRow: View, Equatable {
     }
 }
 
-struct LanguageRowButtonStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .padding(2)
-    }
-}
-
 #if DEBUG
 
 struct LanguageRow_Previews: PreviewProvider {

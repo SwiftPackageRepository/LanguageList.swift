@@ -7,9 +7,9 @@ let package = Package(
     name: "LanguageList",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v13),
-        .macOS(.v11),
-        .tvOS(.v13),
+        .iOS(.v14),
+        .macOS(.v14),
+        .tvOS(.v14),
         .watchOS(.v6)
     ],
     products: [
@@ -20,11 +20,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/SwiftPackageRepository/ISO639.swift.git",
-            exact: "1.4.0"
+            exact: "1.5.0"
         ),
         .package(
             url: "https://github.com/Webblazer/SwiftUIPlus.swift.git",
-            exact: "0.2.0"
+            exact: "0.3.0"
         ),
     ],
     targets: [

@@ -174,18 +174,3 @@ public class LanguageListModel: ObservableObject, Equatable {
         static let navigationTitle = NSLocalizedString("Language", comment: "LanguageViewNavigationTitle: e.g. Language")
     }
 }
-
-#if DEBUG
-
-internal class MockLanguageListModel: LanguageListModel {
-
-    override var rows: [LanguageRowModel] {
-        return [
-            LanguageRowModel.english,
-            LanguageRowModel.french,
-            LanguageRowModel.german
-        ]
-    }
-}
-
-#endif
