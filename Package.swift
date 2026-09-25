@@ -24,7 +24,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/Webblazer/SwiftUIPlus.swift.git",
-            exact: "0.3.1"
+            exact: "0.3.2"
         ),
     ],
     targets: [
