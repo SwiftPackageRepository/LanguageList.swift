@@ -62,7 +62,7 @@ internal struct LanguageRow: View, Equatable {
             }
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(.vertical, 10)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .clipShape(Rectangle())
         .contentShape(Rectangle())

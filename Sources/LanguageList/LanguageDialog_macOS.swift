@@ -27,8 +27,11 @@
 
 import ISO639
 import SwiftUI
+import SwiftUIPlus
 
 public struct LanguageDialog: View {
+
+    @Environment(\.appTheme) private var theme
 
     public var id = UUID()
     
@@ -58,11 +61,14 @@ public struct LanguageDialog: View {
     public var body: some View {
         VStack(alignment: .center, spacing: 0) {
             HStack(alignment: .center, spacing: 8) {
+                Image(systemName: "magnifyingglass")
+                    .foregroundStyle(theme.colors.label.tertiary)
                 TextField("Search", text: $listModel.searchText)
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(.plain)
+                    .foregroundStyle(theme.colors.label.primary)
                 ToolbarButton {
                     Text(LanguageListModel.Localized.cancel)
-                        .foregroundColor(.accentColor)
+                        .foregroundStyle(theme.colors.primaryButton.normal.background)
                         .font(.body)
                 } action: {
                     canceled()
@@ -70,6 +76,7 @@ public struct LanguageDialog: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
+            .background(theme.colors.navigationBar.background)
             LanguageList(listModel) { language in
                 selected(language)
             }
@@ -77,6 +84,7 @@ public struct LanguageDialog: View {
         .id(id)
         .navigationTitle(LanguageListModel.Localized.navigationTitle)
         .frame(minWidth: 320, maxWidth: .infinity, minHeight: 320, maxHeight: .infinity)
+        .background(theme.colors.background.primary.ignoresSafeArea())
     }
 }
 

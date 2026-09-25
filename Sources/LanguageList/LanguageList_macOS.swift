@@ -30,6 +30,8 @@ import SwiftUI
 
 public struct LanguageList: View, Equatable, Identifiable {
 
+    @Environment(\.appTheme) private var theme
+
     @ObservedObject var listModel: LanguageListModel
 
     public var id = UUID()
@@ -76,11 +78,17 @@ public struct LanguageList: View, Equatable, Identifiable {
             ForEach(listModel.rows.indices, id: \.self) { index in
                 let background = Color.list.row(index: index)
                 languageRow(by: index)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .listRowBackground(background)
                     .background(background)
             }
             .listRowInsets(EdgeInsets())
+            .listRowSeparator(.hidden)
         }
         .id(id)
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .background(theme.colors.list.background.ignoresSafeArea())
     }
 
     public static func == (lhs: LanguageList, rhs: LanguageList) -> Bool {
