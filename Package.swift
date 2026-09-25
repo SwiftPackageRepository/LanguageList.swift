@@ -7,9 +7,9 @@ let package = Package(
     name: "LanguageList",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v16),
         .macOS(.v14),
-        .tvOS(.v14),
+        .tvOS(.v16),
         .watchOS(.v6)
     ],
     products: [
@@ -24,7 +24,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/Webblazer/SwiftUIPlus.swift.git",
-            exact: "0.3.0"
+            exact: "0.3.1"
         ),
     ],
     targets: [
