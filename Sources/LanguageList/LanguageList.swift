@@ -75,6 +75,9 @@ public struct LanguageList: View, Equatable, Identifiable {
             }
         }
         .id(id)
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .scrollIndicators(.hidden)
     }
 
     public static func == (lhs: LanguageList, rhs: LanguageList) -> Bool {

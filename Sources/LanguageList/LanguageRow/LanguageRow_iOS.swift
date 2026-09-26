@@ -30,6 +30,8 @@ import ISO639
 
 internal struct LanguageRow: View, Equatable {
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     let action: () -> Void
     @ObservedObject var rowModel: LanguageRowModel
 
@@ -40,32 +42,37 @@ internal struct LanguageRow: View, Equatable {
 
     @ViewBuilder
     public var body: some View {
-        HStack(alignment: .center, spacing: 8) {
+        HStack(alignment: .center, spacing: 14) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(rowModel.title)
                     .foregroundColor(Color.list.primary)
-                    .fontWeight(.light)
-                    .font(.headline.bold())
+                    .font(.body.weight(rowModel.isSelected ? .semibold : .medium))
                 if let subtitle = rowModel.subtitle {
                     Text(subtitle)
                         .foregroundColor(Color.list.secondary)
-                        .fontWeight(.light)
-                        .font(.caption)
+                        .font(.subheadline)
                 }
             }
             Spacer()
             if rowModel.isSelected {
-                Image(systemName: "checkmark")
-                    .imageScale(.medium)
-                    .font(Font.system(.body).bold())
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.system(size: 21, weight: .semibold))
                     .foregroundColor(.accentColor)
+                    .transition(.scale.combined(with: .opacity))
             }
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .clipShape(Rectangle())
-        .contentShape(Rectangle())
+        .padding(.vertical, 13)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            rowModel.isSelected
+                ? Color.accentColor.opacity(0.1)
+                : Color.clear,
+            in: RoundedRectangle(cornerRadius: 14, style: .continuous)
+        )
+        .contentShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .padding(.horizontal, 12)
+        .animation(reduceMotion ? nil : .smooth(duration: 0.2), value: rowModel.isSelected)
         .onTapGesture {
             rowModel.select()
             action()
